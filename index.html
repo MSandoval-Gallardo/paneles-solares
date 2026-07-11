@@ -511,6 +511,26 @@
         opacity: 1;
         transform: none
       }
+      
+/* Agrega este código exacto a tu archivo CSS */
+.pulse.infinite {
+  display: inline-block !important;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) !important; }
+  50% { transform: scale(1.2) !important; }
+  100% { transform: scale(1) !important; }
+}
+.reserva{
+  margin-top: 30%;
+}
+
+
+
     }
   </style>
 </head>
@@ -520,7 +540,7 @@
     <div class="container nav">
       <a class="brand" href="#inicio">
         <span class="brand-mark">☀</span>
-        Allan
+        Allan Mariscal
       </a>
       <nav class="nav-links">
         <a href="#proyectos">Proyectos</a>
@@ -537,9 +557,14 @@
           <h1>Independencia Energética con Garantía</h1>
           <p class="hero-copy">Instalamos sistemas solares seguros que reducen tu factura y protegen tu hogar ante
             cortes de la red, con respaldo técnico, garantía real y monitoreo para ahorrar a largo plazo.</p>
-          <div class="hero-actions"><a class="btn btn-whatsapp" href="https://wa.me/xxxxxxxxxxx" target="_blank"
-              rel="noopener">Consultar por WhatsApp</a><a class="btn btn-secondary" href="#proyectos">Ver
-              instalaciones</a></div>
+          <div class="hero-actions">
+            <a class="btn btn-whatsapp" href="https://wa.me/+56971806441" target="_blank"
+              rel="noopener">Consultar por WhatsApp</a>
+              <a class="btn btn-secondary pulse infinite" href="#reserva">Reserva tu cupo ahora!</a>
+              <a class="btn btn-secondary" href="#proyectos">Ver
+              instalaciones</a>
+
+            </div>
           <div class="hero-proof">
             <div class="proof-pill">Respaldo ante cortes de compañía</div>
             <div class="proof-pill">Ahorro proyectado y medible</div>
@@ -675,13 +700,25 @@
           </article>
         </div>
       </div>
+      <div class="container reserva" id="reserva">
+        <!-- <div class="steps-grid"> -->
+
+          <!-- <div class="steps-grid" id="reserva"> -->
+            <article class="step-card reveal">
+              
+              Reserva tu cupo
+              Selecciona un metodo de pago
+            </article>
+          <!-- </div> -->
+        <!-- </div> -->
+      </div>
     </section>
     <section class="cta-band">
       <div class="container cta-inner reveal">
         <div>
           <h2>Evalúa tu ahorro solar esta semana</h2>
           <p>Comparte tu boleta eléctrica y recibe una estimación clara de inversión, respaldo y retorno esperado.</p>
-        </div><a class="btn btn-whatsapp" href="https://wa.me/xxxxxxxxxxx" target="_blank" rel="noopener">Consultar por
+        </div><a class="btn btn-whatsapp" href="https://wa.me/+56971806441" target="_blank" rel="noopener">Consultar por
           WhatsApp</a>
       </div>
     </section>
@@ -689,21 +726,23 @@
   <footer id="contacto" class="footer">
     <div class="container footer-grid">
       <div>
-        <p><strong>Allan</strong></p>
+        <p><strong>Allan Mariscal</strong></p>
         <p>Instalación de paneles solares, inversores híbridos y baterías de respaldo para hogares y empresas.</p>
         <p>Aviso de privacidad: tus datos se usan únicamente para responder consultas y preparar evaluaciones técnicas.
         </p>
       </div>
       <div>
         <h3>Contacto</h3>
-        <p>contacto@allan.cl</p>
+        <p>contacto@allanmariscal.cl</p>
         <p>+56 9 71806441</p>
         <p>Lunes a viernes, 9:00 a 18:00</p>
       </div>
       <div>
         <h3>Redes sociales</h3>
-        <div class="socials"><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a><a
-            href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></div>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/allan-mat%C3%ADas-javier-mariscal-gajardo-07b4a4265/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></div>
       </div>
     </div>
   </footer>
