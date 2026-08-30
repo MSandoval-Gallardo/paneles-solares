@@ -744,6 +744,233 @@
         display: block;
     }
 }
+/* ===== GALERÍA ===== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 16px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.7));
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.gallery-item .overlay span {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tamaños especiales para destacar imágenes */
+.gallery-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gallery-item:nth-child(4) {
+    grid-column: span 2;
+}
+
+.gallery-item:nth-child(7) {
+    grid-row: span 2;
+}
+
+/* ===== MODAL / LIGHTBOX ===== */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.gallery-modal.active {
+    display: flex;
+}
+
+.gallery-modal .modal-image {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    object-fit: contain;
+    animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.gallery-modal .modal-caption {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 24px;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+}
+
+.gallery-modal .modal-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 8px;
+}
+
+.gallery-modal .modal-close:hover {
+    transform: rotate(90deg);
+    color: #10a978;
+}
+
+.gallery-modal .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.gallery-modal .modal-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gallery-modal .modal-prev {
+    left: 24px;
+}
+
+.gallery-modal .modal-next {
+    right: 24px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 180px;
+        gap: 12px;
+    }
+
+    .gallery-item:nth-child(1) {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .gallery-item:nth-child(4) {
+        grid-column: span 2;
+    }
+
+    .gallery-item:nth-child(7) {
+        grid-row: span 1;
+    }
+
+    .gallery-modal {
+        padding: 16px;
+    }
+
+    .gallery-modal .modal-image {
+        max-width: 100vw;
+        max-height: 70vh;
+    }
+
+    .gallery-modal .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .gallery-modal .modal-prev {
+        left: 8px;
+    }
+
+    .gallery-modal .modal-next {
+        right: 8px;
+    }
+
+    .gallery-modal .modal-close {
+        top: 12px;
+        right: 16px;
+        font-size: 1.6rem;
+    }
+
+    .gallery-modal .modal-caption {
+        bottom: 40px;
+        font-size: 0.9rem;
+        padding: 6px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 140px;
+        gap: 8px;
+    }
+}
     </style>
 </head>
 <body>
@@ -829,6 +1056,35 @@
             </div>
         </div>
     </section>
+    <!-- ===== GALERÍA ===== -->
+    <section class="section" id="galeria">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center; margin:0 auto 40px;">
+                <span class="tag">Nuestros trabajos</span>
+                <h2>Galería de proyectos</h2>
+                <p>Conoce algunos de nuestros proyectos solares instalados en hogares y empresas.</p>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Las imágenes se cargarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MODAL / LIGHTBOX ===== -->
+    <div class="gallery-modal" id="galleryModal">
+        <button class="modal-close" id="modalClose">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button class="modal-nav modal-prev" id="modalPrev">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="modal-nav modal-next" id="modalNext">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <img class="modal-image" id="modalImage" src="" alt="Imagen del proyecto" />
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
 
     <!-- ===== PROYECTOS ===== -->
     <section class="section section-alt" id="proyectos">
@@ -1108,6 +1364,93 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeMenu();
     });
+});
+// ===== DATOS DE LA GALERÍA =====
+const galleryImages = [
+    { src: 'img/foto1.jpeg', caption: 'Instalación residencial - Chicureo' },
+    { src: 'img/foto2.jpeg', caption: 'Instalación residencial - Parral' },
+    { src: 'img/foto3.jpeg', caption: 'Instalación residencial - Rancagua' },
+    { src: 'img/foto4.jpeg', caption: 'Instalación paneles - Valle del Elqui' },
+    { src: 'img/foto5.jpeg', caption: 'Instalación residencial - Chicureo' },
+    { src: 'img/foto6.jpeg', caption: 'Instalación residencial - Santiago' },
+    { src: 'img/foto7.jpeg', caption: 'Instalación paneles - Valle del Elqui' },
+    { src: 'img/foto8.jpeg', caption: 'Instalación inversor y baterias - Valle del Elqui' },
+    { src: 'img/foto9.jpeg', caption: 'Instalación residencial - Recoleta'  },
+    { src: 'img/foto10.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto11.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto12.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto13.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto14.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto15.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+    { src: 'img/foto16.jpeg', caption: 'Sistema solar en vivienda unifamiliar' },
+        
+];
+// ===== RENDERIZAR GALERÍA =====
+const galleryGrid = document.getElementById('galleryGrid');
+
+galleryImages.forEach((img, index) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `
+        <img src="${img.src}" alt="${img.caption}" loading="lazy" />
+        <div class="overlay">
+            <span>${img.caption}</span>
+        </div>
+    `;
+    item.addEventListener('click', () => openModal(index));
+    galleryGrid.appendChild(item);
+});
+
+// ===== MODAL / LIGHTBOX =====
+let currentIndex = 0;
+const modal = document.getElementById('galleryModal');
+const modalImage = document.getElementById('modalImage');
+const modalCaption = document.getElementById('modalCaption');
+
+function openModal(index) {
+    currentIndex = index;
+    updateModal();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function updateModal() {
+    const img = galleryImages[currentIndex];
+    modalImage.src = img.src;
+    modalImage.alt = img.caption;
+    modalCaption.textContent = img.caption;
+}
+
+function prevImage() {
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateModal();
+}
+
+function nextImage() {
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    updateModal();
+}
+
+// ===== EVENTOS DEL MODAL =====
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalPrev').addEventListener('click', prevImage);
+document.getElementById('modalNext').addEventListener('click', nextImage);
+
+// Cerrar con ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+});
+
+// Cerrar al hacer clic fuera de la imagen
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
 });
     </script>
 
