@@ -648,28 +648,131 @@
             border-color: #10a978;
             box-shadow: 0 0 0 4px rgba(16, 169, 120, 0.12);
         }
+        /* ===== MENU HAMBURGUESA ===== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #0b2b44;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+/* Animación para convertir las 3 líneas en una "X" */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* ===== NAV LINKS ===== */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #1e3a5f;
+    transition: 0.3s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 32px 40px;
+        gap: 20px;
+        box-shadow: -8px 0 40px rgba(0, 0, 0, 0.1);
+        transition: right 0.35s ease;
+        font-size: 1.1rem;
+        z-index: 1000;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-links a {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        width: 100%;
+    }
+
+    .nav-links .btn-nav {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    /* Overlay oscuro detrás del menú */
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+    }
+
+    .nav-overlay.active {
+        display: block;
+    }
+}
     </style>
 </head>
 <body>
 
     <!-- ===== TOPBAR ===== -->
     <header class="topbar">
-        <div class="container">
-            <a class="brand" href="#inicio">
-                <span class="brand-mark">☀</span>
-                Allan Mariscal
-            </a>
-            <nav class="nav-links">
-                <a href="#proyectos">Proyectos</a>
-                <a href="#funciona">Cómo funciona</a>
-                <a href="#garantias">Garantías</a>
-                <a href="#pago">Reservar</a>
-                <a href="#asesoria">Asesoria</a>
-                <a href="#pago">Reserva</a>
-            </nav>
+    <div class="container">
+        <a class="brand" href="#inicio">
+            <span class="brand-mark">☀</span>
+            Allan Mariscal
+        </a>
+
+        <!-- Botón hamburguesa (visible solo en móvil) -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#proyectos">Proyectos</a>
+            <a href="#funciona">Cómo funciona</a>
+            <a href="#garantias">Garantías</a>
+            <a href="#asesoria">Asesoría</a>
+            <a href="#pago">Reservar</a>
             <a class="btn-nav" href="#pago">Reservar ahora</a>
-        </div>
-    </header>
+        </nav>
+    </div>
+</header>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="inicio">
@@ -972,6 +1075,41 @@
             // Aquí iría la integración real con Webpay
             // window.location.href = "https://webpay.example.com/pago?...";
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+
+    function toggleMenu() {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Cerrar menú al presionar la tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+});
     </script>
 
 </body>
